@@ -4,9 +4,9 @@
 }
 
 .navbar-active {
-    background-color: green;
+    color: cyan;
 }
 
 .navbar-inactive {
-    background-color: red;
+    color: black;
 }
