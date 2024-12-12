@@ -1,0 +1,12 @@
+#parkingMap {
+    width: 100%; /* Imposta la larghezza al 100% del contenitore */
+    height: 500px; /* Imposta un'altezza fissa per la mappa */
+}
+
+.navbar-active {
+    background-color: green;
+}
+
+.navbar-inactive {
+    background-color: red;
+}
