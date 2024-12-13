@@ -1,3 +1,3 @@
 <x-navbar>
-    <h1>Hello {{$name}}!</h1>
+    <h1>Hello {{Auth::user()->name}}!</h1>
 </x-navbar>
