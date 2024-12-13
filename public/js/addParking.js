@@ -50,8 +50,8 @@ getFromMapBtn.addEventListener("click", () => {
         parkingMapContainer.style.border = "0px";
         parkingMap.lMap.getContainer().style.cursor = "grab";
 
-        document.getElementById("lat").value = e.latlng.lat;
-        document.getElementById("lng").value = e.latlng.lng;
+        document.getElementById("flat").value = e.latlng.lat;
+        document.getElementById("flng").value = e.latlng.lng;
     });
 });
 

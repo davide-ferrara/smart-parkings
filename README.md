@@ -96,10 +96,10 @@ Parking_Sessions:
     street_address VARCHAR(255)
 ```
 
-#### Tabella Parking Spots
+#### Tabella Parking Lots
 
 ```plaintext
-Parking_Spots:
+Parking_Lots:
     id PK,
     lat DECIMAL(9, 6),
     long DECIMAL(9, 6),
