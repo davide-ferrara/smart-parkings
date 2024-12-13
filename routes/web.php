@@ -1,26 +1,18 @@
 <?php
-// Qui specifichiamo API che ritornano view, in API.php invece oggetti (JSON)
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ParkingLotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
-/*
-create, store, edit, update e destroy è comune in Laravel per gestire le operazioni CRUD
-*/
+// Qui specifichiamo API che ritornano view, in API.php invece oggetti (JSON)
+// create, store, edit, update e destroy è comune in Laravel per gestire le operazioni CRUD
 
+// Home
 Route::get('/', function () {
     return view('home', ['name' => 'dave']);
-});
-
-Route::get('/admin', function () {
-    return view('admin.panel');
-});
-
-Route::get('/profile/{id}', function ($id) {
-    return ProfileController::create($id);
 });
 
 // Auth
@@ -34,10 +26,16 @@ Route::post('/register', [RegistredUserController::class, 'store']);
 
 // Admin Panel
 Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'panelView']);
+
     Route::get('/parking_lot', [ParkingLotController::class, 'create']);
     Route::post('/parking_lot', [ParkingLotController::class, 'store']);
 
-    Route::get('/add_parking', function () {
-        return view('admin.add_parking');
-    });
+    Route::get('/parking_lots', [ParkingLotController::class, 'index']);
+});
+
+// Profile
+Route::prefix('profile')->group(function () {
+    Route::get('/{id}', [ProfileController::class, 'create']);
+    Route::put('/{id}', [ProfileController::class, 'update']);
 });

@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 
 class ParkingLotController extends Controller
 {
-
+    public function index() {
+        $parkingLots = ParkingLot::all(); // Recupera tutti i parking lot
+        return view('admin.parking_lots', compact('parkingLots')); // Restituisce la vista con i dati
+    }
     static public function create() {
         return view('admin.add_parking_lot');
     }
