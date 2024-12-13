@@ -22,6 +22,35 @@ class ParkingMap {
             maxZoom: this.maxZoom, // Cambiato da maxinitialZoom a maxZoom
             attribution: "© OpenStreetMap",
         }).addTo(this.lMap);
+
+        const updateParkingLots = () => {
+            console.log('[Parking Map] Starting Updating...');
+
+            if(this.parkingsList.length > 0) this.removeAllParkings();
+
+            this.getParkingLots()
+                .then(parkingLots => {
+                    // console.log(parkingLots);
+
+                    parkingLots.forEach(parking => {
+                        var data = `Lat: ${parking.lat}, Long: ${parking.lng} Numero lotto: ${parking.lot_number}`
+                        parkingMap.addParking(
+                            parking.lat,
+                            parking.lng,
+                            parking.status,
+                            data,
+                            parking.lot_number
+                        );
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            console.log('[Parking Map] Parking lots updated!');
+        };
+
+        updateParkingLots();
+        setInterval(updateParkingLots, 1000 * 10); // 1000 millisecondi = 1 secondo
     }
 
     addParking(lat, lng, status, data, lotNumber) {
@@ -33,41 +62,33 @@ class ParkingMap {
         }).addTo(this.lMap);
 
         newParking.bindPopup(data);
-        this.parkingsList.push({ lotNumber: lotNumber, parking: newParking });
+        this.parkingsList.push({newParking });
     }
 
-    removeParking(lotNumber) {
-        // Trova l'indice del parcheggio con il numero di lotto specificato
-        const parkingIdx = this.findParkingIdx(lotNumber);
+    getParkingLots() {
+        return new Promise((resolve, reject) => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/api/parking-lots", true);
+            xhttp.send();
 
-        if (parkingIdx === -1) {
-            console.log(`Parcheggio con lotto ${lotNumber} non trovato`);
-            return; // Esci dalla funzione se non trovato
-        }
-
-        this.lMap.removeLayer(this.parkingsList[parkingIdx].parking); // Rimuovi l'oggetto parcheggio dalla mappa
-        this.parkingsList.splice(parkingIdx, 1);
-        console.log(`Parcheggio con lotto ${lotNumber} rimosso.`);
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        resolve(JSON.parse(this.responseText));
+                    } else {
+                        reject(new Error("Request failed with status: " + this.status));
+                    }
+                }
+            };
+        });
     }
 
-    changeParkingStatus(parkingObj) {
-        var currColor = String(parkingObj.options.color);
-
-        if (currColor === "red") {
-            parkingObj.setStyle({ color: "green" });
-        } else {
-            parkingObj.setStyle({ color: "red" });
-        }
+    removeAllParkings() {
+        console.log('[Parking Map] Cleared all parkings!');
+        this.parkingsList.forEach(parkingLot => {
+            this.lMap.removeLayer(parkingLot.newParking);
+        })
+        this.parkingsList = [];
     }
 
-    findParkingIdx(lotNumber) {
-        // Trova l'indice del parcheggio con il numero di lotto specificato
-        return this.parkingsList.findIndex(
-            (parking) => parking.lotNumber === lotNumber
-        );
-    }
-
-    getParkingsList() {
-        return this.parkingsList;
-    }
 }

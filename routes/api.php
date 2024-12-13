@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ParkingLot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -7,6 +8,6 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //})->middleware('auth:sanctum');
 
-Route::get('/test', function (Request $request) {
-    return ['aaa' => 'aaa'];
+Route::get('/parking-lots', function () {
+    return ParkingLot::all();
 });

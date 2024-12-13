@@ -27,9 +27,9 @@ class ParkingLotController extends Controller
 
         try {
             ParkingLot::create($validatedParkingLot);
-            return redirect('/admin/add_parking')->with(['success' => 'Parking Lot created!']);
+            return redirect('/admin/parking_lot')->with(['success' => 'Parking Lot created!']);
         } catch (QueryException $e) {
-            return redirect('/admin/add_parking')->withErrors(['lot_number' => 'Il numero del parcheggio deve essere unico.']);
+            return redirect('/admin/parking_lot')->withErrors(['lot_number' => 'Il numero del parcheggio deve essere unico.']);
         }
 
     }
