@@ -1,10 +1,10 @@
 <?php
 // Qui specifichiamo API che ritornano view, in API.php invece oggetti (JSON)
 
+use App\Http\Controllers\ParkingLotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistredUserController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +17,6 @@ Route::get('/', function () {
 
 Route::get('/admin', function () {
     return view('admin.panel');
-});
-
-Route::get('/admin/add_parking', function () {
-    return view('admin.add_parking');
 });
 
 Route::get('/profile/{id}', function ($id) {
@@ -36,4 +32,12 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 Route::get('/register', [RegistredUserController::class, 'create']);
 Route::post('/register', [RegistredUserController::class, 'store']);
 
+// Admin Panel
+Route::prefix('admin')->group(function () {
+    Route::get('/parking_lot', [ParkingLotController::class, 'create']);
+    Route::post('/parking_lot', [ParkingLotController::class, 'store']);
 
+    Route::get('/add_parking', function () {
+        return view('admin.add_parking');
+    });
+});
