@@ -14,6 +14,7 @@ class ParkingMap {
             this.initialZoom
         ); // Imposta la posizione e il livello di zoom iniziale
         this.parkingsList = []; // Lista di tutti i parcheggi, es: {lotNumber: x, parking: parkingObj}
+        this.refreshRate = 1000 * 10; //1000ms = 1s
     }
 
     draw() {
@@ -50,7 +51,7 @@ class ParkingMap {
         };
 
         updateParkingLots();
-        setInterval(updateParkingLots, 1000 * 10); // 1000 millisecondi = 1 secondo
+        setInterval(updateParkingLots, this.refreshRate); // 1000 millisecondi = 1 secondo
     }
 
     addParking(lat, lng, status, data, lotNumber) {
