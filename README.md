@@ -22,11 +22,13 @@ cd smart-parkings
 ./vendor/bin/sail up --build -d && ./vendor/bin/sail npm run dev
 ```
 
-### Fill the database
+### Fill the database and install npm packages
 ```bash
 docker exec <laravel-container-id> -it bash
+npm install
 php artisan migrate
 ```
+Ater installing the npm packages restart the container
 
 ### Shut down the app
 ```bash
