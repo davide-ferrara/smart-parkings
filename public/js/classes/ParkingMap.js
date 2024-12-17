@@ -8,7 +8,7 @@ class ParkingMap {
         this.lat = lat;
         this.lng = lng;
         this.initialZoom = initialZoom;
-        this.maxZoom = 19; // Cambiato da maxinitialZoom a maxZoom
+        this.maxZoom = 21;
         this.lMap = L.map(this.mapContainerId).setView(
             [this.lat, this.lng],
             this.initialZoom
@@ -34,11 +34,15 @@ class ParkingMap {
                     // console.log(parkingLots);
 
                     parkingLots.forEach(parking => {
-                        var data = `Lat: ${parking.lat}, Long: ${parking.lng} Numero lotto: ${parking.lot_number}`
+                        var button = `<button id="${parking.id}" class="button">Park here</button>`;
+                        //var data = `<h1> Lat: ${parking.lat}, Long: ${parking.lng} Numero lotto: ${parking.lot_number} <\h1>`;
+                        var description = `<h4> Status: todo <br> Lot Number: ${parking.lot_number} <\h4>`;
+                        var data = description + button;
+
                         parkingMap.addParking(
                             parking.lat,
                             parking.lng,
-                            parking.status,
+                            parking.curr_status,
                             data,
                             parking.lot_number
                         );
@@ -57,9 +61,9 @@ class ParkingMap {
     addParking(lat, lng, status, data, lotNumber) {
         // Aggiunge un cerchio nella mappa
         var newParking = L.circle([lat, lng], {
-            color: Number(status) ? "green" : "red",
+            color: Number(status) ? "red" : "#167cb9",
             fillOpacity: 0.5,
-            radius: 0.1,
+            radius: 1,
         }).addTo(this.lMap);
 
         newParking.bindPopup(data);

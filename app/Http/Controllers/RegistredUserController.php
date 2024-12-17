@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Credit;
 use App\Models\User;
+use App\Models\UserCredit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +18,6 @@ class RegistredUserController extends Controller
 
     public function store(){
         // valido l'input
-
         $validatedAttributes = request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -25,6 +26,12 @@ class RegistredUserController extends Controller
 
         // salvo l'utente nel db
         $user = User::create($validatedAttributes);
+
+        // assegno credito zero
+        UserCredit::create([
+            'user_id' => $user->id,
+            'total' => 0,
+        ]);
 
         // log in
         Auth::login($user);

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->decimal('lat', $this->coordsPrecision['total'], $this->coordsPrecision['places'])->unique();
             $table->decimal('lng', $this->coordsPrecision['total'], $this->coordsPrecision['places'])->unique();
             $table->integer('lot_number')->unique();
-            //$table->string('zone')->unique();
-            $table->boolean('status')->default(false);
+            $table->string('zone')->unique()->nullable();
+            $table->boolean('curr_status')->default(false);
             $table->string('address')->nullable();
             $table->timestamps();
         });

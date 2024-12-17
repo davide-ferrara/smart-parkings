@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CreditController;
 use App\Http\Controllers\ParkingLotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserCreditController;
 use Illuminate\Support\Facades\Route;
 
 // Qui specifichiamo API che ritornano view, in API.php invece oggetti (JSON)
@@ -38,4 +40,9 @@ Route::prefix('admin')->group(function () {
 Route::prefix('profile')->group(function () {
     Route::get('/{id}', [ProfileController::class, 'create']);
     Route::put('/{id}', [ProfileController::class, 'update']);
+
+    // Credit
+    Route::get('/credit/{id}', [UserCreditController::class, 'show']);
+    Route::put('/credit/{id}', [UserCreditController::class, 'update']);
+
 });

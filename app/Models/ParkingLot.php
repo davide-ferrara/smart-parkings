@@ -16,6 +16,8 @@ class ParkingLot extends Model
         'lng',
         'lot_number',
         'address',
+        'curr_status',
+        'zone'
     ];
 
 }

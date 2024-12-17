@@ -23,8 +23,9 @@ class ParkingLotController extends Controller
             'lng' => ['required'],
             'lot_number' => ['required'],
             'address' => 'nullable',
+            'zone' => 'nullable',
         ]);
-
+        
         try {
             ParkingLot::create($validatedParkingLot);
             return redirect('/admin/parking_lot')->with(['success' => 'Parking Lot created!']);

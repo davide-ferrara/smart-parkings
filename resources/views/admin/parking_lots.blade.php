@@ -1,5 +1,9 @@
 <x-layout>
+
     @section('content')
+
+        <div class="main">
+
         <h1>All Parking Lots</h1>
 
         @if($parkingLots->isEmpty())
@@ -28,4 +32,5 @@
                 </tbody>
             </table>
         @endif
+    </div>
 </x-layout>
