@@ -12,12 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('parking_lot_histories', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->unsignedBigInteger('lot_number');
-            $table->timestamp('occuped_at');
-            $table->timestamp('freed_at');
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('lot_number');
+            $table->dateTime('start_parking');
+            $table->dateTime('end_parking');
+            $table->timestamps();
 
-            $table->unsignedBigInteger('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('lot_number')->references('lot_number')->on('parking_lots')->onDelete('cascade');
         });
     }
 

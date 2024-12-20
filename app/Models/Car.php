@@ -10,8 +10,8 @@ class Car extends Model
         'license_plate',
     ];
 
-    public function cars() {
+    public function cars()
+    {
         return $this->hasMany(Car::class);
     }
-
 }

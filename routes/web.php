@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CreditController;
+use App\Http\Controllers\BuyParkingController;
 use App\Http\Controllers\ParkingLotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistredUserController;
@@ -45,4 +45,10 @@ Route::prefix('profile')->group(function () {
     Route::get('/credit/{id}', [UserCreditController::class, 'show']);
     Route::put('/credit/{id}', [UserCreditController::class, 'update']);
 
+});
+
+Route::get('/buy-parking/{lot_number}', [BuyParkingController::class, 'show']);
+Route::post('/buy-parking', [BuyParkingController::class, 'store']);
+Route::get('/active-parking', function () {
+    return view('profile.active_parking');
 });

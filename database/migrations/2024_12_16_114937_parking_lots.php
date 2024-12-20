@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    private Array $coordsPrecision = ['total' => 17, 'places' => 15]; // places indica quante cifre dopo la virgola
+    private const COORDS_PRECISION_TOTAL = 17;
+
+    private const COORDS_PRECISION_PLACES = 15;
 
     /**
      * Run the migrations.
@@ -14,14 +16,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('parking_lots', function (Blueprint $table) {
-            $table->id();
-            $table->decimal('lat', $this->coordsPrecision['total'], $this->coordsPrecision['places'])->unique();
-            $table->decimal('lng', $this->coordsPrecision['total'], $this->coordsPrecision['places'])->unique();
-            $table->integer('lot_number')->unique();
-            $table->string('zone')->unique()->nullable();
+            $table->increments('lot_number');
+            $table->decimal('lat', self::COORDS_PRECISION_TOTAL, self::COORDS_PRECISION_PLACES);
+            $table->decimal('lng', self::COORDS_PRECISION_TOTAL, self::COORDS_PRECISION_PLACES);
             $table->boolean('curr_status')->default(false);
+            $table->unsignedBigInteger('zone_id')->default('1');
             $table->string('address')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
+            $table->foreign('zone_id')->references('id')->on('parking_lot_zones')->onDelete('cascade');
         });
     }
 
