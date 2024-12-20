@@ -37,7 +37,6 @@
                         </label>
 
                         <input
-                            required
                             type="number"
                             id="ParkingLot"
                             name="lot_number"
@@ -51,7 +50,7 @@
                         <input
                             type="text"
                             id="Zone"
-                            name="zone"
+                            name="zone_id"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                         />
 

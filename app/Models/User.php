@@ -49,7 +49,8 @@ class User extends Authenticatable
         return $this->hasOne(UserCredit::class);
     }
 
-    public function cars() {
+    public function cars()
+    {
         return $this->belongsTo(Car::class);
     }
 

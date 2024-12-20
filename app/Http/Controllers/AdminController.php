@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    static function panelView():View {
+    public static function panelView(): View
+    {
         return view('admin.panel');
     }
 }

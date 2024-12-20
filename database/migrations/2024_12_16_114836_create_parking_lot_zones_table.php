@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('lot_number');
-
+        Schema::create('parking_lot_zones', function (Blueprint $table) {
+            $table->id();
+            $table->char('letter', 1);
+            $table->unsignedInteger('price_per_hours');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('parking_lot_zones');
     }
 };

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_credits', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->primary();
-            $table->decimal('total', 6,2)->default(0);
+            $table->unsignedBigInteger('user_id');
+            $table->decimal('total', 6, 2)->default(0);
             $table->timestamps();
-
+            $table->primary('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

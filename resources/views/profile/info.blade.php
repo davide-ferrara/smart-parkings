@@ -17,7 +17,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ url('profile/' . $user->id) }}">
+        <form method="POST" action="{{ url('profile/' . Auth::user()->id) }}">
             @csrf
             @method('PUT')
 
@@ -56,7 +56,7 @@
                         Edit your personal information below
                     </p>
 
-                    <form action="{{ url('profile/' . $user->id) }}" method="POST" class="mt-8 grid grid-cols-3 gap-6">
+                    <form action="{{ url('profile/' . Auth::user()->id) }}" method="POST" class="mt-8 grid grid-cols-3 gap-6">
                         @csrf
                         @method('PUT')
 

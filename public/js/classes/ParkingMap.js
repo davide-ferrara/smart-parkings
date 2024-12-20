@@ -27,23 +27,34 @@ class ParkingMap {
         const updateParkingLots = () => {
             console.log('[Parking Map] Starting Updating...');
 
-            if(this.parkingsList.length > 0) this.removeAllParkings();
+            if (this.parkingsList.length > 0) this.removeAllParkings();
 
             this.getParkingLots()
                 .then(parkingLots => {
                     // console.log(parkingLots);
 
                     parkingLots.forEach(parking => {
-                        var button = `<button id="${parking.id}" class="button">Park here</button>`;
-                        //var data = `<h1> Lat: ${parking.lat}, Long: ${parking.lng} Numero lotto: ${parking.lot_number} <\h1>`;
-                        var description = `<h4> Status: todo <br> Lot Number: ${parking.lot_number} <\h4>`;
-                        var data = description + button;
 
+                        if (parking.curr_status == 1) {
+                            var form = `
+                                <form action="/buy-parking/${parking.lot_number}" method="GET">
+                                    <label htmlFor="LotNumber">Lot Number: ${parking.lot_number}</label>
+                                    <label htmlFor="OccupedBy">Occuped by: TARGA</label>
+                                </form >
+                                `;
+                        } else {
+                            var form = `
+                                <form action="/buy-parking/${parking.lot_number}" method="GET">
+                                    <label htmlFor="LotNumber">Lot Number: ${parking.lot_number}</label>
+                                    <button id="${parking.lot_number}" type="submit" class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">Park here</button>
+                                </form >
+                                `;
+                        }
                         parkingMap.addParking(
                             parking.lat,
                             parking.lng,
                             parking.curr_status,
-                            data,
+                            form,
                             parking.lot_number
                         );
                     })
@@ -67,7 +78,7 @@ class ParkingMap {
         }).addTo(this.lMap);
 
         newParking.bindPopup(data);
-        this.parkingsList.push({newParking });
+        this.parkingsList.push({ newParking });
     }
 
     getParkingLots() {
@@ -76,7 +87,7 @@ class ParkingMap {
             xhttp.open("GET", "/api/parking-lots", true);
             xhttp.send();
 
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
                         resolve(JSON.parse(this.responseText));
