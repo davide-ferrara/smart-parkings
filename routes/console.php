@@ -17,7 +17,7 @@ function checkParkingLotStatus($parkingLotHistory) {
     Log::info("Checking: now at: " . $now . " end at:" . $endParking . " lot: " . $lotNumber);
 
     if ($now > $endParking) {
-        Log::info("Found an expired parking lot" . $lotNumber);
+        Log::info("Found an expired parking lot " . $lotNumber);
         DB::table('parking_lots')->where('lot_number', $lotNumber)->update([
             "curr_status" => 0
         ]);
@@ -29,7 +29,7 @@ function checkParkingLotStatus($parkingLotHistory) {
 
 }
 
-Artisan::command('test', function () {
+Artisan::command('updateParkingStatusJob', function () {
 
     $parkingLotHistories = DB::table('parking_lot_histories')->get();
 
@@ -37,6 +37,6 @@ Artisan::command('test', function () {
         checkParkingLotStatus($parkingLotHistory);
     }
 
-})->purpose('Scrive test ogni secondo!')->everyTenSeconds();
+})->purpose('Update the parking status inside the DB')->everyTenSeconds();
 
-Schedule::command('test');
+Schedule::command('updateParkingStatusJob');
