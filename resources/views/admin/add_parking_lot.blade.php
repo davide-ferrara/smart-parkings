@@ -32,23 +32,13 @@
                         class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                     />
 
-                        <label for="ParkingLot" class="block text-sm font-medium text-gray-700">
-                            Parking Lot Number
-                        </label>
-
-                        <input
-                            type="number"
-                            id="ParkingLot"
-                            name="lot_number"
-                            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                        />
-
                         <label for="Zone" class="block text-sm font-medium text-gray-700">
                             Zone
                         </label>
 
                         <input
                             type="text"
+                            value="A"
                             id="Zone"
                             name="zone_id"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"

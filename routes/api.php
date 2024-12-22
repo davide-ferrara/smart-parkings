@@ -9,5 +9,6 @@ use Illuminate\Support\Facades\Route;
 //})->middleware('auth:sanctum');
 
 Route::get('/parking-lots', function () {
+    Log::info("[api.php] Sending parking lots json");
     return ParkingLot::all();
 });

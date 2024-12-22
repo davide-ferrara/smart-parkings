@@ -35,7 +35,7 @@ class ParkingLotController extends Controller
             ParkingLot::create($validatedParkingLot);
 
             return redirect('/admin/parking_lot')->with([
-                'success' => 'Parking Lot created!',
+                'success' => 'Parking lot created!',
             ]);
         } catch (QueryException $e) {
             dd($e);

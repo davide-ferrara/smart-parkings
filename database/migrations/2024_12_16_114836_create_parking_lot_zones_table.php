@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parking_lot_zones', function (Blueprint $table) {
             $table->id();
             $table->char('letter', 1);
-            $table->unsignedInteger('price_per_hours');
+            $table->decimal('price_per_hours', 4,2);
             $table->timestamps();
         });
     }
