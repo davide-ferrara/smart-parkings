@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ParkingLot;
+use App\Models\ParkingLotZone;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class ParkingLotController extends Controller
 {
@@ -16,7 +18,9 @@ class ParkingLotController extends Controller
 
     public static function create()
     {
-        return view('admin.add_parking_lot');
+        $parkingLotZones = ParkingLotZone::all();
+
+        return view('admin.add_parking_lot', compact('parkingLotZones'));
     }
 
     public static function store()
@@ -27,8 +31,10 @@ class ParkingLotController extends Controller
             'lat' => ['required'],
             'lng' => ['required'],
             'lot_number' => 'nullable',
-            'address' => 'nullable',
-            'zone_id' => 'nullable',
+            'address' =>  ['required'],
+            'zone_id' => ['required'],
+            'occupied_by' => ['nullable'],
+            'license_plate' => ['nullable', 'max:7'],
         ]);
 
         try {
@@ -38,7 +44,11 @@ class ParkingLotController extends Controller
                 'success' => 'Parking lot created!',
             ]);
         } catch (QueryException $e) {
-            dd($e);
+            // Non dimenticare di eseguire 'php artisan db:seed'
+            Log::error($e->getMessage());
+            return redirect('/admin/parking_lot')->withErrors([
+                'error' => 'Parking could not be created!',
+            ]);
         }
     }
 }

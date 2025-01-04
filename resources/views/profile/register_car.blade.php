@@ -1,10 +1,4 @@
 <x-layout>
-    <!--
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
--->
     <section>
         <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
 
@@ -12,33 +6,20 @@
                 <div class="max-w-xl lg:max-w-3xl">
 
                     <h1 class="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                        Your profile
+                        Register a car
                     </h1>
 
-                    <p class="mt-4 leading-relaxed text-gray-500">
-                        Edit your personal information below
-                    </p>
-
-                    <form action="{{ url('profile/' . Auth::user()->id) }}" method="POST"
-                        class="mt-8 grid grid-cols-3 gap-6">
+                    <form action="{{ route('cars.store') }}" method="POST"
+                          class="mt-8 grid grid-cols-3 gap-6">
                         @csrf
-                        @method('PUT')
 
                         <div class="col-span-6">
-                            <x-label for="FirstName">First Name</x-label>
-                            <x-form-input type="text" id="FirstName" name="name"
-                                value="{{ Auth::user()->name }}"></x-form-input>
+                            <x-label>Model Name</x-label>
+                            <x-form-input type="text" name="model_name" maxlength="25"></x-form-input>
 
-                            <x-label for="Surname">Surname</x-label>
-                            <x-form-input type="text" id="Surname" name="surname"
-                                value="{{ Auth::user()->surname }}"></x-form-input>
+                            <x-label>License Plate</x-label>
+                            <x-form-input type="text" maxlength="7" minlength="7" name="license_plate"></x-form-input>
 
-                            <x-label for="Email">Email</x-label>
-                            <x-form-input type="email" id="Email" name="email"
-                                value="{{ Auth::user()->email }}"></x-form-input>
-
-                            <x-label>Password</x-label>
-                            <x-form-input type="password" id="Password" name="password"></x-form-input>
                             <div>
 
                                 @if (session('success'))
@@ -58,7 +39,7 @@
                                 <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                                     <button
                                         class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                                        Confirm edit
+                                        Register Car
                                     </button>
                                 </div>
                             </div>

@@ -17,7 +17,7 @@
     <section class="bg-white">
         <h1>Parking information</h1>
         <h3>Your current credit: {{Auth::user()->credit['total']}}€</h3>
-        <form action="/buy-parking" method="POST">
+        <form action="/parking" method="POST">
             @csrf
             <div>
                 <label for="LotNumber" class="block text-sm font-medium text-gray-700">
@@ -59,6 +59,15 @@
                     name="end_parking"
                     class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Select Car</label>
+                <select name="car_id" id="carID" class="mt-1 w-full rounded-md border-gray-300 bg-white text-sm text-gray-700 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    @foreach(Auth::user()->cars as $car)
+                        <option value="{{ $car->id }}">{{ $car->model_name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div>

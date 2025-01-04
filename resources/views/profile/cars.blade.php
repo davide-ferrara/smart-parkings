@@ -3,36 +3,27 @@
     @section('content')
 
         <div class="main px-6 py-4">
-            <h1 class="text-2xl font-bold mb-4">Parking Lots</h1>
+            <h1 class="text-2xl font-bold mb-4">Registered cars</h1>
 
-        @if($parkingLots->isEmpty())
-            <p>No parking lots available.</p>
-        @else
+            @if($cars->isEmpty())
+                <p>No cars registered.</p>
+            @else
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
                         <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Lat</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Long</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Lot Number</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Status</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Zone ID</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Address</th>
-                            <th class="px-4 py-2 text-center text-sm font-medium text-gray-700">Actions</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Car Model</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">License Plate</th>
                         </tr>
                         </thead>
                         <tbody class="divide-y">
-                        @foreach($parkingLots as $lot)
+                        @foreach($cars as $car)
                             <tr class="hover:bg-gray-100">
-                                <td class="px-4 py-2 text-sm text-gray-800">{{ $lot->lat }}</td>
-                                <td class="px-4 py-2 text-sm text-gray-800">{{ $lot->lng }}</td>
-                                <td class="px-4 py-2 text-sm text-gray-800">{{ $lot->lot_number }}</td>
-                                <td class="px-4 py-2 text-sm text-gray-800">{{ $lot->curr_status }}</td>
-                                <td class="px-4 py-2 text-sm text-gray-800">{{ $lot->zone_id}}</td>
-                                <td class="px-4 py-2 text-sm text-gray-800">{{ $lot->address }}</td>
+                                <td class="px-4 py-2 text-sm text-gray-800">{{ $car->model_name }}</td>
+                                <td class="px-4 py-2 text-sm text-gray-800">{{ $car->license_plate }}</td>
                                 <td class="px-4 py-2 text-center">
                                     <!-- Edit Button -->
-                                    <form action="" method="GET" class="inline">
+                                    <form action="{{ route('cars.update_view', $car->id) }}" method="GET" class="inline">
                                         @csrf
                                         <button type="submit"
                                                 class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
@@ -40,7 +31,7 @@
                                         </button>
                                     </form>
                                     <!-- Delete Button -->
-                                    <form action="" method="POST" class="inline">
+                                    <form action="{{ route('cars.destroy', $car->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -55,6 +46,13 @@
                         </tbody>
                     </table>
                 </div>
-        @endif
-    </div>
+            @endif
+            <form action="{{ url('/profile/cars/register') }}" method="GET" class="inline">
+                @csrf
+                <button type="submit"
+                        class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
+                    Register a new car
+                </button>
+            </form>
+        </div>
 </x-layout>

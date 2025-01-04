@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Artisan;
 //    $this->comment(Inspiring::quote());
 //})->purpose('Display an inspiring quote')->everySixHours();
 
+Artisan::command('log:clear', function () {
+    exec('echo "" > ' . storage_path('logs/laravel.log'));
+    $this->comment('Logs have been cleared');
+})->purpose('Clear logs');
+
 function checkParkingLotStatus($parkingLotHistory) {
 
     $now = Carbon::now()->setTimezone('Europe/Rome');
@@ -16,22 +21,32 @@ function checkParkingLotStatus($parkingLotHistory) {
 
     Log::info("Checking: now at: " . $now . " end at:" . $endParking . " lot: " . $lotNumber);
 
+    // Se il parcheggio e' scaduto
     if ($now > $endParking) {
-        Log::info("Found an expired parking lot " . $lotNumber);
-        DB::table('parking_lots')->where('lot_number', $lotNumber)->update([
-            "curr_status" => 0
-        ]);
-    } else if($endParking > $now) {
-        Log::info("Parking lot " . $parkingLotHistory->lot_number . " still valid!" );
-    } else {
-        Log::info("Found old parking history");
+        DB::beginTransaction();
+        try {
+            DB::table('parking_lots')->where('lot_number', $lotNumber)->update([
+                "curr_status" => 0, "occupied_by" => null, "license_plate" => null
+            ]);
+
+            DB::table('parking_lot_histories')->where('id', $parkingLotHistory->id)->update([
+                'processed' => true,
+                'processed_at' => $now,
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Error updating parking lot status: " . $e->getMessage());
+        }
     }
+
 
 }
 
 Artisan::command('updateParkingStatusJob', function () {
 
-    $parkingLotHistories = DB::table('parking_lot_histories')->get();
+    $parkingLotHistories = DB::table('parking_lot_histories')->where('processed', false)->get();
 
     foreach ($parkingLotHistories as $parkingLotHistory) {
         checkParkingLotStatus($parkingLotHistory);

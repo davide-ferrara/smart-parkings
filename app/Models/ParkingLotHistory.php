@@ -12,4 +12,17 @@ class ParkingLotHistory extends Model
         'start_parking',
         'end_parking',
     ];
+
+    // Questi attributi verranno automaticamente convertiti in oggetti Carbon
+    protected $casts = [
+        'start_parking' => 'datetime',
+        'end_parking' => 'datetime',
+        'processed_at' => 'datetime',
+        'processed' => 'boolean',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

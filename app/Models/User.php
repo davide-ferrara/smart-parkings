@@ -5,9 +5,12 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -21,6 +24,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'phone_number',
         'email',
         'password',
     ];
@@ -49,9 +54,19 @@ class User extends Authenticatable
         return $this->hasOne(UserCredit::class);
     }
 
-    public function cars()
+    public function cars(): BelongsToMany
     {
-        return $this->belongsTo(Car::class);
+        return $this->belongsToMany(Car::class, 'car_user');
+    }
+
+    public function parkingLot(): hasOne
+    {
+        return $this->hasOne(ParkingLot::class, 'occupied_by');
+    }
+
+    public function parkingLotHistory(): HasMany
+    {
+        return $this->hasMany(ParkingLotHistory::class, 'user_id');
     }
 
     protected function casts(): array

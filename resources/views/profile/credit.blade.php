@@ -1,33 +1,5 @@
 <x-layout>
-{{--    <div class="main">
 
-        <h1>Your credit is: {{Auth::user()->credit['total']}} Euro</h1>
-
-        <form method="POST" action="{{ url('profile/credit/' . Auth::user()->id) }}">
-            @csrf
-            @method('PUT')
-
-            <x-form-input type="number" name="total" placeholder="5" value="5"></x-form-input>
-
-            <x-button type="submit">Add founds</x-button>
-
-        </form>
-
-        @if(session('success'))
-            <p>{{ session('success') }}</p>
-        @endif
-
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-    </div>--}}
     <div class="flex-auto flex flex-col items-center text-center m-10 rounded-md  text-3xl space-y-6">
         <h1 class="font-bold text-gray-800">Your total credit:</h1>
         <h2 class="text-blue-600">{{ Auth::user()->credit['total'] }}€</h2>
@@ -82,7 +54,6 @@
             </div>
         @endif
     </div>
-
 
         <script>
             function increment() {
