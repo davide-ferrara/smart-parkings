@@ -2,8 +2,9 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite --host",
         "build": "vite build",
-        "dev": "vite"
+        "preview": "vite preview"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",

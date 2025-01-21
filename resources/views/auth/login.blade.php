@@ -1,23 +1,5 @@
 <x-layout>
 
-{{--    <div class="main card">
-
-        <h1>Login Page</h1>
-
-        <form method="POST" action="/login">
-            @csrf
-            <!-- da sistemare in username -->
-            <x-form-input type="text" name="name" id="fusername" placeholder="username" :value="old('email')" required></x-form-input>
-            <x-form-error name="email" />
-
-            <x-form-input type="password" name="password" id="fpassword" placeholder="password"></x-form-input>
-            <x-form-error name="password" />
-
-            <x-button type="submit">Log In</x-button>
-
-        </form>
-
-    </div>----}}
     <div class="flex-auto">
         <!--
   Heads up! 👋
@@ -25,8 +7,7 @@
   Plugins:
     - @tailwindcss/forms
 -->
-
-        <section class="relative flex flex-wrap justify-center h:screen items-center lg:h-screen lg:items-center">
+        <section class="relative flex flex-wrap justify-center items-start h-screen lg:h-screen lg:items-start pt-10 lg:pt-20">
             <div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
                 <div class="mx-auto max-w-lg text-center">
                     <h1 class="text-2xl font-bold sm:text-3xl">Start parking today!</h1>
@@ -119,6 +100,21 @@
                         </button>
                     </div>
                 </form>
+                <div class="text-center">
+                    @if (session('success'))
+                        <p class="text-blue-600 font-medium text-m">{{ session('success') }}</p>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="text-red-500 font-medium text-m">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
             </div>
 
         </section>

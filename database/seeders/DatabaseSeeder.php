@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\ParkingLot;
 use App\Models\ParkingLotZone;
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Providers\Models\ParkingLot;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +28,18 @@ class DatabaseSeeder extends Seeder
             ParkingLotZone::factory()->create(
                 $parkingZones[$i]
             );
+        }
+
+        Log::info("Seeding database, adding parking lots...");
+
+        $parkingLotsSeedPath = "parking_lots.json";
+        $jsonContent = file_get_contents($parkingLotsSeedPath);
+        $jsonContent = json_decode($jsonContent, true);
+
+        $parkingLotSeed = $jsonContent[2]["data"];
+
+        for($i = 0; $i < count($parkingLotSeed); $i++) {
+            ParkingLot::factory()->create($parkingLotSeed[$i]);
         }
 
     }

@@ -1,5 +1,9 @@
-<div class="flex-1 w-full h-full box-border overflow-hidden" id="mapContainer">
-    <div id="parkingMap"></div>
+<div class="flex h-screen" id="mapContainer">
+    <!-- Contenitore della mappa -->
+    <div class="flex-3 flex-grow bg-gray-200" id="mapContainer">
+        <div id="parkingMap" class="w-full h-full bg-gray-400"></div>
+    </div>
+    {{$slot}}
 </div>
 
 <script>
