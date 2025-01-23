@@ -47,12 +47,15 @@
                     </table>
                 </div>
             @endif
-            <form action="{{ url('/profile/cars/register') }}" method="GET" class="inline">
-                @csrf
-                <button type="submit"
-                        class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
-                    Register a new car
-                </button>
-            </form>
+            <div class="p-2">
+                <form action="{{ url('/profile/cars/register') }}" method="GET" class="inline">
+                    @csrf
+                    <button type="submit"
+                            class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
+                        Register a new car
+                    </button>
+                </form>
+            </div>
+
         </div>
 </x-layout>

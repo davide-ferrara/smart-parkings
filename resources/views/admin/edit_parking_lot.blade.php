@@ -10,7 +10,7 @@
                         Edit Parking
                     </h1>
 
-                    <form action="" method="POST" class="mt-8 grid grid-cols-3 gap-6">
+                    <form action="{{ url("admin/parking/" . $parkingLot->lot_number) }}" method="POST" class="mt-8 grid grid-cols-3 gap-6">
                         @csrf
                         @method('PUT')
 

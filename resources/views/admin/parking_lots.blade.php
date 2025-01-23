@@ -32,7 +32,7 @@
                                 <td class="px-4 py-2 text-sm text-gray-800">{{ $lot->address }}</td>
                                 <td class="px-4 py-2 text-center">
                                     <!-- Edit Button -->
-                                    <form action="" method="GET" class="inline">
+                                    <form action="{{ url("admin/parking/update/" . $lot->lot_number) }}" method="GET" class="inline">
                                         @csrf
                                         <button type="submit"
                                                 class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
@@ -40,7 +40,7 @@
                                         </button>
                                     </form>
                                     <!-- Delete Button -->
-                                    <form action="" method="POST" class="inline">
+                                    <form action="{{ url("admin/parking/" . $lot->lot_number) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"

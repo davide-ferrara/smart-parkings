@@ -6,8 +6,7 @@
     - @tailwindcss/forms
 -->
 
-    <section>
-        <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
+    <section class="relative flex flex-wrap justify-center items-start h-screen lg:h-screen lg:items-start pt-10 lg:pt-20">
 
             <main class="flex justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
                 <div class="max-w-xl lg:max-w-3xl">
@@ -56,34 +55,6 @@
                                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                         </div>
 
-                        {{--                        <div class="col-span-6 sm:col-span-3">
-                            <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
-                                Password Confirmation
-                            </label>
-
-                            <input
-                                type="password"
-                                id="PasswordConfirmation"
-                                name="password_confirmation"
-                                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                            />
-                        </div> --}}
-
-                        {{--                        <div class="col-span-6">
-                            <label for="MarketingAccept" class="flex gap-4">
-                                <input
-                                    type="checkbox"
-                                    id="MarketingAccept"
-                                    name="marketing_accept"
-                                    class="size-5 rounded-md border-gray-200 bg-white shadow-sm"
-                                />
-
-                                <span class="text-sm text-gray-700">
-                I want to receive emails about events, product updates and company announcements.
-              </span>
-                            </label>
-                        </div> --}}
-
                         <div class="col-span-6">
                             <p class="text-sm text-gray-500">
                                 By creating an account, you agree to our
@@ -107,7 +78,6 @@
                     </form>
                 </div>
             </main>
-        </div>
     </section>
 
 

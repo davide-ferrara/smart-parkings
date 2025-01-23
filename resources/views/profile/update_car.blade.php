@@ -14,12 +14,12 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="col-span-6">
+                        <div class="">
                             <x-label for="ModelName">Model name</x-label>
                             <x-form-input type="text" id="ModelName" name="model_name" value="{{$car->model_name}}"></x-form-input>
 
                             <x-label for="LicensePlate">License Plate</x-label>
-                            <x-form-input type="text" id="LicensePlate" name="license_plate" value="{{$car->license_plate}}" maxlength="7" minlength="7"></x-form-input>
+                            <x-form-input type="text" id="LicensePlate" name="license_plate" value="{{$car->license_plate}}" maxlenght="7" minlenght="7"></x-form-input>
 
                             @if(session('success'))
                                 <p class="text-blue-600 font-medium text-m">{{ session('success') }}</p>
@@ -35,7 +35,7 @@
                                 </div>
                             @endif
 
-                            <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+                            <div class="p-2">
                                 <button
                                     class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                                 >

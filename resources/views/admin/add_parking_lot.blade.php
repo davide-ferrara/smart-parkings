@@ -1,10 +1,9 @@
 <x-layout>
-    <div class="flex-1 flex">
-        <x-map></x-map>
-
-        <div class="border-1 flex-1 p-5">
-            <form method="POST" action="parking_lot" class="space-y-4">
+    <x-map>
+         <div class="border-1 flex-1 p-5">
+            <form method="POST" action="{{url("admin/parking")}}" class="space-y-4">
                 @csrf
+                @method("POST")
 
                 <div>
                     <label for="Latitude" class="block text-sm font-medium text-gray-700">Latitude</label>
@@ -88,7 +87,7 @@
                 @endif
             </form>
         </div>
-    </div>
+    </x-map>
 
     <script rel="text/javascript" src="{{ asset('js/addParking.js') }}"></script>
 </x-layout>

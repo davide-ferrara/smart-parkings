@@ -100,7 +100,7 @@
                         </button>
                     </div>
                 </form>
-                <div class="text-center">
+                <div>
                     @if (session('success'))
                         <p class="text-blue-600 font-medium text-m">{{ session('success') }}</p>
                     @endif

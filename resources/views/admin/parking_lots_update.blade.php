@@ -18,6 +18,10 @@
                         @method('PUT')
 
                         <div class="col-span-6 space-y-4">
+                            <x-label for="lot_number">Lot Number</x-label>
+                            <x-form-input type="text" id="lot_number" name="lot_number" type="number" step="any"
+                                          value="{{ $parkingLot->lot_number }}">
+                            </x-form-input>
 
                             <x-label for="lat">Latitude</x-label>
                             <x-form-input type="text" id="lat" name="lat" type="number" step="any"
@@ -27,11 +31,6 @@
                             <x-label for="lng">Longitude</x-label>
                             <x-form-input type="text" id="lng" name="lng" type="number" step="any"
                                           value="{{ $parkingLot->lng }}">
-                            </x-form-input>
-
-                            <x-label for="lot_number">Lot Number</x-label>
-                            <x-form-input type="text" id="lot_number" name="lot_number" type="number" step="any"
-                                          value="{{ $parkingLot->lot_number }}">
                             </x-form-input>
 
                             <x-label for="address">Address</x-label>
