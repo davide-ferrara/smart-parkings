@@ -20,6 +20,14 @@ class ParkingLot extends Model
         'lot_number',
         'address',
         'curr_status',
-        'zone',
+        'zone_id',
+        'occupied_by',
+        'license_plate',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'occupied_by');
+    }
+
 }

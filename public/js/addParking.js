@@ -1,14 +1,4 @@
 // addParking.js
-
-/*let lat = 38.0743889;
-let long = 15.65425;
-let zoom = 15;
-let lotNumber = 0;
-
-let parkingMap = new ParkingMap("parkingMap", lat, long, zoom);
-parkingMap.draw();
-*/
-
 function getParkingdata(lat, lng) {
     return new Promise(function(resolve, reject) {
         var url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
@@ -34,31 +24,46 @@ const getFromMapBtn = document.getElementById("getFromMapBtn");
 
 getFromMapBtn.addEventListener("click", () => {
     console.log("Pick a point in the map!");
+
     const mapContainer = document.getElementById("mapContainer");
     parkingMap.lMap.getContainer().style.cursor = "crosshair";
     mapContainer.style.border = "3px solid red";
 
+    // Rimuovi i poligoni dalla mappa
+    parkingMap.polygons.forEach(polygon => {
+        polygon.remove();
+    });
+
+    // Disattiva i precedenti listener
     parkingMap.lMap.off("click", parkingMap.onMapClick, parkingMap);
 
+    console.log(parkingMap.lMap);
+
+    // Aggiungi un listener per il clic sulla mappa
     parkingMap.lMap.on("click", (e) => {
-        //console.log(`Lat: ${e.latlng.lat}, Long: ${e.latlng.lng}`);
-        parkingMap.lMap.off("click");
+        parkingMap.lMap.off("click"); // Rimuove l'ascoltatore per evitare conflitti
         mapContainer.style.border = "0px";
         parkingMap.lMap.getContainer().style.cursor = "grab";
 
+        // Inserisce i valori di latitudine e longitudine
         document.getElementById("Latitude").value = e.latlng.lat;
         document.getElementById("Longitude").value = e.latlng.lng;
 
-        getParkingdata(e.latlng.lat, e.latlng.lng).then(
-            data => {
-                var address = data.display_name
-                document.getElementById("Address").value = address
+        // Esegui la chiamata API
+        getParkingdata(e.latlng.lat, e.latlng.lng)
+            .then(data => {
+                document.getElementById("Address").value = data.display_name;
                 console.log(data);
-            }
-        ).catch(error => {
-            console.log(error);
-        })
-
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                // Riaggiungi i poligoni alla mappa
+                parkingMap.polygons.forEach(polygon => {
+                    polygon.addTo(parkingMap.lMap);
+                });
+            });
     });
-
 });
+
