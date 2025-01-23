@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\ParkingLot;
 use App\Models\ParkingLotZone;
-use App\Providers\Models\ParkingLot;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Log;
 
