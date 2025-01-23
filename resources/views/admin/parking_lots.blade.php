@@ -1,7 +1,5 @@
 <x-layout>
 
-    @section('content')
-
         <div class="main px-6 py-4">
             <h1 class="text-2xl font-bold mb-4">Parking Lots</h1>
 
