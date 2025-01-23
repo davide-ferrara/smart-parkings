@@ -1,6 +1,6 @@
 # Smart Parking RC
 
-![image](example.png)
+![image](docs/client.png)
 
 Smart Parking è una Web App che permette agli utenti di acquistare
 biglietti per le soste a pagamento nella città di Reggio Calabria.
